@@ -10,8 +10,11 @@ const fs = require('fs')
 dotenv.config()
 connectDB();
 app.use(express.json());
+app.use((req, res, next) => {
+    res.header({"Access-Control-Allow-Origin": "*"});
+    next();
+  })
 const PORT = process.env.PORT;
-console.log(PORT)
 app.get('/home',(req, res)=>{
     try {
         res.status(200).json(
