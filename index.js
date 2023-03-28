@@ -5,14 +5,20 @@ const connectDB = require("./config/conndb.js")
 const userRoutes = require('./routes/userRoutes')
 const productRoutes = require('./routes/productRoutes')
 const categoryRoutes = require('./routes/categoryRoutes')
-const fs = require('fs')
+const cors = require('cors')
 
 dotenv.config()
 connectDB();
 app.use(express.json());
+// app.use(cors({
+//     origin:"http://localhost:3000",
+//     method:["GET","POST"]
+// }))
 app.use((req, res, next) => {
-    res.header({"Access-Control-Allow-Origin": "*"});
-    next();
+   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
   })
 const PORT = process.env.PORT;
 app.get('/home',(req, res)=>{
